@@ -1,0 +1,204 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ANIBATTLE</title>
+<style>
+:root{--gold:#ffd071;--muted:#a3aec4}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#35336c,#151a30 45%,#080a12 85%);color:#f6f7fc;font-family:system-ui,Arial}header{text-align:center;padding:25px 12px}h1{font-size:clamp(38px,8vw,64px);margin:4px}h1 span{color:var(--gold)}header p,.muted{color:var(--muted)}main{max-width:900px;margin:auto;padding:10px 14px 30px}.mode-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.mode-card{background:linear-gradient(145deg,#242d4c,#111727);border:1px solid #526184;border-radius:17px;padding:20px;text-align:center;min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px}.mode-card h3{margin:3px 0;font-size:21px}.mode-card .mode-icon{font-size:48px}.mode-card p{margin:0;color:var(--muted);font-size:12px}.mode-card button{margin-top:7px}.coming{opacity:.48;filter:grayscale(.7)}.room-code{text-align:center;font-size:clamp(28px,7vw,42px);letter-spacing:7px;font-weight:900;color:var(--gold);padding:12px}.ready-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ready-player{border:1px solid #3a4867;border-radius:12px;background:#1a2339;padding:14px;font-size:13px}.ready-player strong{display:block;margin-top:9px;color:#a3aec4}.ready-player.is-ready{border-color:#54d69a}.ready-player.is-ready strong{color:#54d69a}@media(max-width:420px){.ready-grid{grid-template-columns:1fr}}.panel{background:#111727ed;border:1px solid #303b58;border-radius:18px;padding:17px;margin-bottom:14px}.row,.actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.actions{justify-content:center;margin-top:14px}button{border:0;border-radius:11px;padding:12px 16px;font-weight:900;cursor:pointer;background:linear-gradient(135deg,#ffdc91,#e9ad4c)}button:disabled{opacity:.4;cursor:not-allowed}.secondary{background:#293650;color:white;border:1px solid #506080}.accept{background:#54d69a}.refuse{background:#ef7187}input{width:145px;padding:12px;background:#0b1120;color:white;border:1px solid #506080;border-radius:10px;text-align:center;letter-spacing:3px;font-size:16px}.tag,.status{border:1px solid #465574;border-radius:30px;padding:7px 10px;color:#75dce9;font-size:11px;font-weight:bold}.status{border-radius:9px;background:#0b1120}.scores{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:14px}.player,.collection{background:#1a2339;border:1px solid #3a4867;border-radius:13px;padding:12px}.player.active{border-color:var(--gold)}.player h3,.collection h3{margin:0;font-size:14px}.score{font-size:24px;color:var(--gold);font-weight:900}.vs{color:#8290aa;font-weight:900}.stage{min-height:245px;display:grid;place-items:center}.card{width:min(100%,340px);min-height:220px;border-radius:17px;border:1px solid #7583a8;background:radial-gradient(circle at top,#46517c,#1d2943 60%,#111727);padding:20px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}.back{background:linear-gradient(145deg,#292f57,#101729);border-color:#8975ca}.symbol{font-size:48px}.universe{font-size:10px;letter-spacing:2px;color:#75dce9;font-weight:900;margin:7px}.card h2{margin:4px;font-size:25px}.power{color:var(--gold);font-weight:900}.stats,.cards{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:10px}.stat,.mini{font-size:11px;background:#0b1020;border:1px solid #ffffff22;border-radius:8px;padding:6px 8px}.collections{display:grid;grid-template-columns:1fr 1fr;gap:10px}.collection{background:#0b1120}.cards{justify-content:flex-start}.notice{text-align:center;color:var(--muted);font-size:13px;min-height:22px;margin-top:10px}.hidden{display:none!important}.small{font-size:12px;line-height:1.5}footer{text-align:center;color:#78839a;font-size:11px;padding:10px}@media(max-width:540px){.collections{grid-template-columns:1fr}.score{font-size:20px}.panel{padding:13px}}
+
+:root{--gold:#f8ce73;--muted:#aebbd4;--cyan:#7ce8ff}
+body{min-height:100vh;background:radial-gradient(ellipse 75% 35% at 50% -5%,#4c398a 0%,transparent 85%),radial-gradient(circle at 90% 80%,#132f4e,transparent 45%),#080d19}
+header{padding:27px 12px 16px}header h1{letter-spacing:2px;text-shadow:0 8px 36px #0008}header p{font-size:13px;margin:6px}
+main{max-width:820px;padding:8px 16px 34px}
+.panel{background:linear-gradient(155deg,#19233add,#0c1424ed);border:1px solid #66769b55;box-shadow:0 16px 45px #0004;border-radius:22px;padding:22px}
+.panel h2{margin:0 0 12px;font-size:clamp(18px,3vw,23px)}
+.mode-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.mode-card{min-height:165px;padding:16px;border-radius:18px;background:linear-gradient(155deg,#283459,#101a2d);border:1px solid #7285b055;box-shadow:inset 0 1px #ffffff13;gap:7px;transition:transform .2s,border-color .2s}
+.mode-card:not(.coming):hover{transform:translateY(-3px);border-color:#f8ce73}
+.mode-card .mode-icon{font-size:38px}.mode-card h3{font-size:19px;margin:0}.mode-card button{font-size:12px;padding:11px 14px}
+button{transition:transform .15s,filter .15s;box-shadow:0 5px 15px #0003}
+button:not(:disabled):hover{transform:translateY(-2px);filter:brightness(1.09)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.secondary{background:linear-gradient(135deg,#354768,#24314d)}
+.room-code{background:#090f1d;border:1px dashed #7086a5;border-radius:14px;margin:14px 0}
+.ready-player,.player,.collection{background:linear-gradient(145deg,#222e49,#121d31);border-color:#60739b55}
+.ready-player.is-ready{box-shadow:inset 0 0 0 1px #54d69a55}
+.card{position:relative;overflow:hidden;min-height:250px;border-radius:22px;background:radial-gradient(circle at 50% 0%,#505d97,#1b2945 60%,#0b1324);border:1px solid #8da2d5;box-shadow:0 16px 38px #0006,inset 0 1px #ffffff2b}
+.card:before{content:"";position:absolute;inset:9px;border:1px solid #ffffff1d;border-radius:15px;pointer-events:none}
+.card .symbol{font-size:55px;filter:drop-shadow(0 5px 10px #0006)}
+.card h2{font-size:clamp(21px,4vw,27px);margin:7px 0 14px}
+.card .power{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--gold)}
+.power-label{font-size:10px;letter-spacing:2px;color:#bac9e5}
+.card .power strong{font-size:39px;line-height:1}
+.card .power small{font-size:15px;color:#d3ddf2}
+.power-track{width:70%;height:8px;background:#070d19;border-radius:20px;margin-top:12px;overflow:hidden;border:1px solid #ffffff25}
+.power-track span{display:block;height:100%;background:linear-gradient(90deg,#69d9ff,#f8ce73);border-radius:20px}
+.mini{background:#1d2c46;border:1px solid #526b96;padding:8px 10px;font-size:12px}
+.score{font-size:26px}.tag{letter-spacing:.3px}
+@media(max-width:540px){header{padding-top:17px}main{padding:6px 10px 24px}.panel{padding:15px}.mode-grid{grid-template-columns:1fr 1fr;gap:8px}.mode-card{min-height:145px;padding:11px}.mode-card .mode-icon{font-size:31px}.mode-card h3{font-size:15px}.mode-card button{font-size:10px;padding:10px 7px}.mode-card p{font-size:10px}.scores{gap:4px}.player{padding:9px}.score{font-size:19px}.row button{max-width:100%}}
+@media(max-width:370px){.mode-grid{grid-template-columns:1fr}}
+
+/* ANIBATTLE • KYARA-INSPIRED PREMIUM THEME */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
+:root{--gold:#e4baff;--muted:#a2a4bf;--cyan:#a68dff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:radial-gradient(ellipse 62% 40% at 52% -13%,#66339b88,transparent 78%),radial-gradient(ellipse 50% 60% at 105% 50%,#36246566,transparent 80%),linear-gradient(180deg,#100e20,#090913 60%,#0a0816);color:#f5f0ff;min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.19;background-image:linear-gradient(#a38aff12 1px,transparent 1px),linear-gradient(90deg,#a38aff12 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,#000,transparent 85%)}
+header{padding:34px 12px 22px;position:relative}header .tag{display:inline-block;letter-spacing:3px;color:#d3c3ff;background:#9b6cff12;border-color:#b68dff45;font-size:10px;padding:9px 16px}
+h1{font-family:'Barlow Condensed',Impact,sans-serif;font-weight:900;font-style:italic;font-size:clamp(62px,11vw,100px);letter-spacing:-2px;line-height:.97;margin:14px 0 8px;text-shadow:0 0 65px #8c54e777}
+h1 span{background:linear-gradient(130deg,#f5d4ff,#9d75ff);background-clip:text;-webkit-background-clip:text;color:transparent}h1 sup{font:normal 22px Inter;vertical-align:top;color:#d5baff;margin-left:4px}
+header p{font-size:10px;font-weight:800;letter-spacing:2.2px;color:#8582aa}
+main{max-width:920px;position:relative}.panel{background:linear-gradient(130deg,#1c1832ee,#100f20ee);border:1px solid #a68dff35;border-radius:22px;box-shadow:0 25px 60px #0006,inset 0 1px #ffffff0b;padding:24px}
+.panel h2{font-family:'Barlow Condensed',Impact,sans-serif;font-size:29px;font-weight:900;letter-spacing:1px}.panel h2 em{font-style:normal;color:#ba92ff}
+#modeSelect>p{margin-bottom:20px}.mode-grid{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px}
+.mode-card{position:relative;overflow:hidden;min-height:300px;border:1px solid #9672c955;border-radius:18px;background:linear-gradient(150deg,#2a214b,#100f21 82%);box-shadow:inset 0 1px #ffffff18,0 12px 28px #0005;padding:16px 18px 19px;gap:8px}
+.mode-card:not(.coming):hover{border-color:#c49bff;transform:translateY(-4px);box-shadow:0 18px 38px #0009,0 0 32px #7d3aff22}
+.mode-card>.tag{z-index:1;color:#c9ffa6;border-color:#9effaf44;background:#2d5a3633}
+.mode-card h3{font-family:'Barlow Condensed',Impact,sans-serif;font-size:27px;letter-spacing:.8px;text-transform:uppercase;z-index:1}
+.mode-card p{font-size:11px;z-index:1}.mode-card button{width:100%;font-size:12px;z-index:1;letter-spacing:.5px;margin-top:10px}
+.mode-art{position:relative;width:100%;height:142px;overflow:hidden;border-radius:13px;background:radial-gradient(circle at 50% 42%,#a1c8ff99,#4a4386 33%,#16152d 78%);border:1px solid #adadff44;isolation:isolate}
+.mode-art:before,.mode-art:after{content:"";position:absolute;border:1px solid #b5d6ff77;border-radius:50%;left:50%;top:45%;transform:translate(-50%,-50%)}.mode-art:before{width:180px;height:180px;box-shadow:0 0 45px #92b9ff88}.mode-art:after{width:112px;height:112px;box-shadow:0 0 25px #a9b6ff88}
+.art-halo{position:absolute;inset:-25px;background:conic-gradient(from 30deg,transparent,#bdc9ff44,transparent,#9c8eff66,transparent);animation:rotateHalo 15s linear infinite}
+.art-figure{position:absolute;left:50%;bottom:-18px;transform:translateX(-50%);width:125px;height:145px;filter:drop-shadow(0 0 12px #bddbff99)}
+.art-body{position:absolute;bottom:0;left:4px;width:118px;height:76px;border-radius:45% 45% 0 0;background:linear-gradient(120deg,#080b19,#222d4a 45%,#070a13);border:1px solid #a5c5ff77}
+.art-head{position:absolute;top:21px;left:38px;width:52px;height:72px;border-radius:43% 43% 48% 48%;background:linear-gradient(100deg,#d5b4ac,#f7d9d0 48%,#a98d9e);transform:rotate(-4deg);z-index:2}
+.art-hair{position:absolute;top:1px;left:24px;width:80px;height:52px;z-index:3;background:#eaf5ff;clip-path:polygon(3% 68%,13% 28%,29% 41%,35% 0,52% 27%,67% 3%,73% 35%,94% 12%,88% 72%,100% 94%,65% 79%,38% 93%);filter:drop-shadow(0 0 7px #fff)}
+.art-blindfold{position:absolute;top:24px;left:-5px;width:62px;height:19px;background:linear-gradient(90deg,#10182c,#222f52,#10182c);border-radius:8px 4px 7px 4px;transform:rotate(4deg);box-shadow:0 1px 4px #101322;z-index:4}
+.art-title{position:absolute;bottom:7px;right:9px;font:italic 900 34px 'Barlow Condensed',Impact,sans-serif;letter-spacing:2px;color:#f4f5ff99;text-shadow:0 2px 9px #000}
+.coming{background:linear-gradient(145deg,#222039,#111020);opacity:.7;filter:none}.coming-icon{font-size:70px;color:#9c83cc;text-shadow:0 0 45px #a27dfd99;margin:30px 0 15px}.coming .tag{color:#b7aed2;background:#ffffff0b;border-color:#ffffff25}
+button{background:linear-gradient(110deg,#e0b9ff,#a27cff);color:#1b102c;border-radius:10px;font-weight:900;box-shadow:0 6px 22px #9e63ff3b;letter-spacing:.2px}
+button:not(:disabled):hover{filter:brightness(1.13);box-shadow:0 8px 25px #ac73ff55}.secondary{background:linear-gradient(120deg,#342b50,#24203d);color:#e4d9ff;border:1px solid #9d82c65e;box-shadow:none}
+input{background:#0e0c1d;border-color:#8870b45e;color:#f2eaff}.tag,.status{border-color:#a68dff55;color:#c9afff}.status{background:#141026}
+.room-code{color:#e3bdff;background:#120e25;border-color:#a68dff77}.ready-player,.player,.collection{background:linear-gradient(130deg,#241d3d,#151329);border-color:#8c72bd55}.player.active{border-color:#d4aaff;box-shadow:0 0 22px #b47aff22}
+.score{color:#d7adff}.vs{color:#b495ec}.card{border:1px solid #b39bf1;box-shadow:0 20px 50px #0008,0 0 36px #8b62d733;background:radial-gradient(ellipse at 50% 0%,#6656a7,#2b2250 58%,#111026);transition:transform .2s}
+.card:after{content:"✦";position:absolute;right:15px;top:11px;color:#e6c6ff;font-size:18px}.card .symbol{font-size:66px;filter:drop-shadow(0 7px 20px #ac83ff99)}.card .universe{color:#c3adff}.card h2{font-family:'Barlow Condensed',Impact,sans-serif;font-size:31px;letter-spacing:.5px}.card .power strong{color:#efceff}.power-track span{background:linear-gradient(90deg,#795eff,#f1c4ff)}
+.mini{background:#2b2345;border-color:#a58ae466;color:#e9ddff}.notice{color:#b8a9d5}
+@keyframes rotateHalo{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.art-halo{animation:none}*{scroll-behavior:auto!important}}
+@media(max-width:540px){header{padding:22px 10px 17px}header p{font-size:9px;letter-spacing:1px}.panel{padding:15px}.mode-grid{grid-template-columns:1fr 1fr}.mode-card{min-height:245px;padding:9px;gap:6px}.mode-art{height:115px}.mode-card h3{font-size:19px}.mode-card button{font-size:10px;padding:10px 5px}.mode-card p{font-size:10px}.coming-icon{font-size:52px;margin:27px 0 15px}.art-figure{transform:translateX(-50%) scale(.85);transform-origin:bottom center}}
+@media(max-width:390px){.mode-grid{grid-template-columns:1fr}.mode-card{min-height:240px}.mode-art{height:140px}}
+</style></head><body>
+<header><div class="tag">ANIME CARD BATTLES • ONLINE</div><h1>ANI<span>BATTLE</span><sup>✦</sup></h1><p>DUELS STRATÉGIQUES · 2 JOUEURS · 5 CARTES</p></header>
+<main>
+<section class="panel" id="modeSelect">
+  <h2>CHOISIS TON <em>UNIVERS</em></h2>
+  <p class="muted small">Sélectionne le mode de combat. D'autres univers arriveront plus tard.</p>
+  <div class="mode-grid">
+    <div class="mode-card">
+      <div class="mode-art"><div class="art-halo"></div><div class="art-figure"><div class="art-hair"></div><div class="art-head"><div class="art-blindfold"></div></div><div class="art-body"></div></div><div class="art-title">GOJO</div></div>
+      <div class="tag">● DISPONIBLE</div>
+      <h3>Jujutsu Kaisen</h3>
+      <p>Le duel des exorcistes</p>
+      <button id="selectJJK">ENTRER DANS LE MODE →</button>
+    </div>
+    <div class="mode-card coming">
+      <div class="coming-icon">✦</div>
+      <div class="tag">BIENTÔT</div>
+      <h3>Autres univers</h3>
+      <p>De nouveaux animes seront ajoutés prochainement.</p>
+      <button class="secondary" disabled>INDISPONIBLE</button>
+    </div>
+  </div>
+</section>
+<section class="panel hidden" id="lobby"><div class="row" style="justify-content:space-between"><h2>🌐 Multijoueur en ligne</h2><button class="secondary" id="backModes">← MODES</button></div><p class="muted small">Crée un salon et donne le code à ton ami. Chacun joue sur son propre appareil.</p><div class="row"><button id="create">CRÉER UN SALON</button><input id="codeInput" maxlength="6" placeholder="CODE"><button class="secondary" id="join">REJOINDRE</button></div><div class="row" style="margin-top:12px"><span class="status" id="status">Pas connecté</span><span class="status hidden" id="room"></span></div><p class="muted small" id="lobbyMsg">Le créateur est Joueur 1. La personne qui rejoint est Joueur 2.</p></section>
+<section class="panel hidden" id="waiting"><div class="row" style="justify-content:space-between"><h2>🎮 Salon d’attente</h2><span class="tag">JUJUTSU KAISEN</span></div><p class="muted small">Partage le code du salon avec ton ami. Les deux joueurs doivent être prêts avant de commencer.</p><div class="room-code" id="waitingCode">------</div><div class="ready-grid"><div class="ready-player" id="ready0">👑 Joueur 1 (créateur)<strong>En attente</strong></div><div class="ready-player" id="ready1">🎮 Joueur 2<strong>En attente</strong></div></div><p class="muted small" id="waitingInfo">Connexion au serveur…</p><div class="actions"><button id="readyBtn" disabled>JE SUIS PRÊT</button><button id="startBtn" class="accept hidden" disabled>DÉMARRER LA PARTIE</button></div></section>
+<section id="game" class="hidden"><div class="scores"><div class="player" id="p0"><h3>Joueur 1</h3><div class="score" id="s0">0</div><div class="muted small" id="n0">0 / 5 cartes</div></div><div class="vs">VS</div><div class="player" id="p1"><h3>Joueur 2</h3><div class="score" id="s1">0</div><div class="muted small" id="n1">0 / 5 cartes</div></div></div>
+<section class="panel"><div class="row" style="justify-content:space-between"><span class="tag" id="turn">TOUR 1</span><span class="tag" id="role">EN ATTENTE</span></div><p class="muted small" id="instruction">En attente du début…</p><div class="stage" id="stage"><div class="card back"><div class="symbol">呪</div><div class="universe">JUJUTSU KAISEN</div><h2>ANIBATTLE</h2></div></div><div class="actions" id="actions"></div><div class="notice" id="notice"></div><p class="muted small">Le joueur qui pioche voit la carte secrète sur SON écran, mais ne peut pas encore la garder. L'autre joueur doit accepter ou refuser sans voir la carte. La carte est révélée après sa décision.</p></section>
+<section class="panel"><div class="row" style="justify-content:space-between"><h2>Collections</h2><span class="tag">5 CARTES MAX / JOUEUR</span></div><div class="collections"><div class="collection"><h3>Joueur 1</h3><div class="cards" id="c0">Aucune carte</div></div><div class="collection"><h3>Joueur 2</h3><div class="cards" id="c1">Aucune carte</div></div></div></section></section>
+<div class="actions"><button class="secondary" id="quit" disabled>QUITTER LA PARTIE</button></div></main><footer>ANIBATTLE • Puissances indicatives pour le jeu</footer>
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script><script>
+const roster=[
+["Satoru Gojo","🌀",10,"Infini","Six Yeux"],["Ryomen Sukuna","👹",10,"Sanctuaire","Flammes"],["Yuta Okkotsu","⚔️",9,"Rika","Copie"],["Kenjaku","🧠",9,"Manipulation","Stratégie"],["Yuki Tsukumo","🌌",9,"Masse","Garuda"],["Toji Fushiguro","🗡️",9,"Corps céleste","Arsenal"],["Suguru Geto","🐉",9,"Esprits maudits","Uzumaki"],["Mahoraga","☸️",9,"Adaptation","Épée"],["Maki Zenin","🔥",9,"Corps céleste","Armes"],["Kinji Hakari","🎰",8,"Jackpot","Immortalité"],["Hajime Kashimo","⚡",9,"Électricité","Mythique"],["Jogo","🌋",8,"Volcan","Météores"],["Mahito","🪡",8,"Âme","Métamorphose"],["Choso","🩸",8,"Sang","Supernova"],["Aoi Todo","👏",8,"Boogie Woogie","Combat"],["Megumi Fushiguro","🐺",8,"Dix Ombres","Shikigami"],["Yuji Itadori","👊",8,"Poings","Énergie maudite"],["Kento Nanami","⌚",7,"Ratio","Précision"],["Nobara Kugisaki","🔨",6,"Résonance","Poupée"],["Panda","🐼",6,"Mutations","Force"]
+].map(x=>({name:x[0],emoji:x[1],power:x[2]}));
+const $=id=>document.getElementById(id);let peer=null,conn=null,role=null,me=null,roomCode="",game=null,ready=[false,false],connected=false,serverReady=false,started=false;
+const total=a=>a.reduce((v,c)=>v+c.power,0),say=t=>$("notice").textContent=t;
+function status(t){$("status").textContent=t}
+function card(c){return `<div class="card"><div class="symbol">${c.emoji}</div><div class="universe">JUJUTSU KAISEN</div><h2>${c.name}</h2><div class="power"><span class="power-label">PUISSANCE</span><strong>${c.power}<small> / 10</small></strong></div><div class="power-track"><span style="width:${c.power*10}%"></span></div></div>`}
+const back=()=>'<div class="card back"><div class="symbol">呪</div><div class="universe">JUJUTSU KAISEN</div><h2>CARTE SECRÈTE</h2><div class="muted small">Personnage caché</div></div>';
+function stateFor(i){let p=game.pending;return {turn:game.turn,drawer:game.drawer,collections:game.collections,finished:game.finished,lastResult:game.lastResult,pending:p?{drawer:p.drawer,decider:p.decider,card:i===p.drawer?p.card:null}:null}}
+function send(m){if(role==="host")handle(m);else if(conn&&conn.open)conn.send(m)}
+function showWaiting(){ $("lobby").classList.add("hidden");$("game").classList.add("hidden");$("waiting").classList.remove("hidden");$("quit").disabled=false;$("waitingCode").textContent=roomCode;renderWaiting() }
+function renderWaiting(){
+ for(let i=0;i<2;i++){let el=$("ready"+i);el.classList.toggle("is-ready",ready[i]);el.querySelector("strong").textContent=ready[i]?"✓ PRÊT":i===1&&!connected?"Pas encore connecté":"Pas prêt"}
+ $("readyBtn").disabled=!connected||!serverReady;
+ $("readyBtn").textContent=ready[me]?"ANNULER PRÊT":"JE SUIS PRÊT";
+ $("startBtn").classList.toggle("hidden",role!=="host");
+ $("startBtn").disabled=!(role==="host"&&connected&&serverReady&&ready.every(Boolean));
+ $("waitingInfo").textContent=!serverReady?"Connexion au serveur en cours…":!connected?"En attente du deuxième joueur…":ready.every(Boolean)?"Les deux joueurs sont prêts ! Le créateur peut démarrer.":"Attendez que les deux joueurs soient prêts.";
+}
+function broadcastWaiting(){if(role==="host"&&conn&&conn.open)conn.send({type:"lobby",ready,connected});renderWaiting()}
+
+function sync(){if(role!=="host"||!started||!conn||!conn.open)return;conn.send({type:"state",state:stateFor(1)});render(stateFor(0))}
+function render(v){$("game").classList.remove("hidden");$("lobby").classList.add("hidden");$("waiting").classList.add("hidden");$("quit").disabled=false;
+for(let i=0;i<2;i++){let a=v.collections[i];$("s"+i).textContent=total(a)+" PTS";$("n"+i).textContent=a.length+" / 5 cartes";$("c"+i).innerHTML=a.length?a.map(x=>`<span class="mini">${x.emoji} ${x.name} · ${x.power}/10</span>`).join(""):"<span class='muted small'>Aucune carte</span>";$("p"+i).classList.toggle("active",!!v.pending&&v.pending.drawer===i)}
+$("turn").textContent=v.finished?"FIN DE PARTIE":"TOUR "+v.turn;
+if(v.finished){let a=total(v.collections[0]),b=total(v.collections[1]);$("role").textContent="RÉSULTAT";$("stage").innerHTML=`<div class="card"><div class="symbol">🏆</div><h2>${a===b?"ÉGALITÉ":a>b?"JOUEUR 1 GAGNE":"JOUEUR 2 GAGNE"}</h2><div class="power">${a} — ${b}</div></div>`;$("instruction").textContent="Le total de points le plus élevé gagne.";$("actions").innerHTML="";return}
+let p=v.pending;
+if(p){if(me===p.drawer&&p.card){$("role").textContent="TU AS PIOCHÉ";$("stage").innerHTML=card(p.card);$("instruction").textContent="Tu vois la carte, mais tu ne peux pas encore la récupérer. Attends la décision de l'autre joueur.";$("actions").innerHTML="<button disabled>EN ATTENTE DE SA DÉCISION…</button>";say("Carte visible uniquement par toi.");}
+else if(me===p.decider){$("role").textContent="À TOI DE CHOISIR";$("stage").innerHTML=back();$("instruction").textContent="Une carte mystère est proposée. Tu ne sais pas laquelle : accepte ou refuse à l'aveugle.";$("actions").innerHTML=`<button class="accept" id="yes" ${v.collections[me].length>=5?"disabled":""}>ACCEPTER</button><button class="refuse" id="no">REFUSER</button>`;$("yes").onclick=()=>send({type:"decision",accept:true});$("no").onclick=()=>send({type:"decision",accept:false});say(v.collections[me].length>=5?"Tu as déjà 5 cartes : tu dois refuser.":"La carte sera révélée après ton choix.");}
+}else{let draw=me===v.drawer;
+if(v.lastResult){
+ $("stage").innerHTML=card(v.lastResult.card);
+ $("instruction").textContent=v.lastResult.accepted
+ ? `Carte révélée : ${v.lastResult.card.name}. Joueur ${v.lastResult.owner+1} l’a acceptée et la récupère.`
+ : `Carte révélée : ${v.lastResult.card.name}. Joueur ${v.lastResult.owner+1} la garde après le refus.`;
+}else{
+ $("stage").innerHTML=back();
+ $("instruction").textContent=draw?"Pioche une carte : tu seras le seul à la voir.":"L'autre joueur doit piocher une carte secrète.";
+}
+$("role").textContent=draw?"À TOI DE PIOCHER":"EN ATTENTE";
+$("actions").innerHTML=draw?'<button id="draw">PIOCHER UNE CARTE</button>':'<button disabled>EN ATTENTE…</button>';
+if(draw)$("draw").onclick=()=>send({type:"draw"});
+say("Le joueur qui pioche ne décide pas du destin de la carte.");
+}}
+function handle(m){if(!m)return;
+ if(m.type==="ready"&&!started){let index=role==="host"?0:1;if(role==="host"&&m.remote)index=1;ready[index]=!!m.value;broadcastWaiting();return}
+ if(m.type==="start"&&role==="host"&&!started&&connected&&ready.every(Boolean)){started=true;initGame();conn.send({type:"start"});sync();return}
+ if(!started||!game)return;if(m.type==="draw"){if(game.pending||game.finished||game.collections[game.drawer].length>=5)return;let pool=roster.filter(x=>!game.used.includes(x.name));if(!pool.length){game.used=[];pool=roster}let c=pool[Math.floor(Math.random()*pool.length)];game.used.push(c.name);game.pending={drawer:game.drawer,decider:1-game.drawer,card:c};game.lastResult=null;sync();}
+if(m.type==="decision"&&game.pending){let p=game.pending,accepted=!!m.accept&&game.collections[p.decider].length<5,owner=accepted?p.decider:p.drawer;game.collections[owner].push(p.card);game.lastResult={card:p.card,owner:owner,accepted:accepted};game.pending=null;game.finished=game.collections[0].length===5&&game.collections[1].length===5;if(!game.finished){let next=1-p.drawer;game.drawer=game.collections[next].length<5?next:p.drawer;game.turn++}sync();}}
+function initGame(){game={turn:1,drawer:0,collections:[[],[]],pending:null,lastResult:null,finished:false,used:[]}}
+function setup(c){conn=c;c.on("open",()=>{connected=true;status("Connecté • Salon "+roomCode);$("room").classList.remove("hidden");$("room").textContent="CODE "+roomCode;showWaiting();if(role==="guest")conn.send({type:"hello"});else broadcastWaiting()});c.on("data",m=>{if(role==="host"){
+ if(m.type==="hello"){broadcastWaiting()}
+ else if(m.type==="ready")handle({...m,remote:true});
+ else handle(m);
+ }else if(m.type==="lobby"){ready=m.ready;connected=m.connected;renderWaiting()}
+ else if(m.type==="start"){started=true;$("waiting").classList.add("hidden")}
+ else if(m.type==="state"&&started){game=m.state;render(m.state)}
+ });c.on("close",()=>{connected=false;ready=[false,false];status("Connexion perdue");if(!started)renderWaiting()})}
+function create(){
+ if(!window.Peer){status("PeerJS inaccessible : vérifie Internet");return}
+ role="host";me=0;
+ roomCode=String(Math.floor(100000+Math.random()*900000));
+ ready=[false,false];connected=false;serverReady=false;started=false;game=null;showWaiting();
+ // Affiche le code immédiatement, pendant que PeerJS établit la connexion.
+ $("room").classList.remove("hidden");
+ $("room").textContent="CODE "+roomCode;
+ $("lobbyMsg").textContent="Ton code est prêt. Connexion au serveur en cours… Garde cette page ouverte.";
+ status("Code créé • Connexion au serveur…");
+ $("create").disabled=true;
+ $("create").textContent="SALON EN PRÉPARATION…";
+ peer=new Peer("anibattle-"+roomCode);
+ peer.on("open",()=>{
+  status("Salon prêt • En attente de ton ami");
+  $("lobbyMsg").textContent="Partage ton code à ton ami. Garde cette page ouverte.";
+  $("create").textContent="SALON CRÉÉ";
+  serverReady=true;renderWaiting();
+ });
+ peer.on("connection",c=>{if(conn&&conn.open){c.close();return}setup(c)});
+ peer.on("error",e=>{
+  status("Erreur salon : "+e.type);
+  $("lobbyMsg").textContent="Le code est généré, mais le serveur n'a pas accepté le salon. Clique sur Quitter puis réessaie.";
+  $("create").disabled=false;$("create").textContent="RÉESSAYER";
+ });
+}
+function join(){if(!window.Peer){status("PeerJS inaccessible : vérifie Internet");return}let code=$("codeInput").value.trim();if(!/^\d{6}$/.test(code)){status("Le code doit avoir 6 chiffres");return}role="guest";me=1;roomCode=code;ready=[false,false];connected=false;serverReady=false;started=false;game=null;showWaiting();status("Connexion…");peer=new Peer();peer.on("open",()=>{serverReady=true;renderWaiting();setup(peer.connect("anibattle-"+code,{reliable:true}))});peer.on("error",e=>status("Erreur : "+e.type))}
+function quit(){if(conn)conn.close();if(peer)peer.destroy();peer=conn=game=role=me=null;ready=[false,false];connected=false;serverReady=false;started=false;$("waiting").classList.add("hidden");$("game").classList.add("hidden");$("lobby").classList.remove("hidden");$("room").classList.add("hidden");$("quit").disabled=true;$("create").disabled=false;$("create").textContent="CRÉER UN SALON";status("Pas connecté")}
+$("selectJJK").onclick=()=>{
+ $("modeSelect").classList.add("hidden");
+ $("lobby").classList.remove("hidden");
+};
+$("backModes").onclick=()=>{
+ if(peer||conn||game)quit();
+ $("lobby").classList.add("hidden");
+ $("modeSelect").classList.remove("hidden");
+};
+$("readyBtn").onclick=()=>{if(!connected||!serverReady)return;if(role==="host")handle({type:"ready",value:!ready[0]});else conn.send({type:"ready",value:!ready[1]})};
+$("startBtn").onclick=()=>handle({type:"start"});
+$("create").onclick=create;$("join").onclick=join;$("quit").onclick=quit;
+</script></body></html>
